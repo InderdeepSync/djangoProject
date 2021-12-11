@@ -11,7 +11,11 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 def home_page(request: HttpRequest):
-    return render(request, "home_page.html", {})
+    context = {}
+    if request.user.is_authenticated:
+        cart_obj = Cart.objects.obtain_user_cart(request.user)
+        context['cart'] = cart_obj
+    return render(request, "home_page.html", context)
 
 
 class UserLoginView(LoginView):
