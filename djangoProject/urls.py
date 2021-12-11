@@ -18,12 +18,14 @@ from django.contrib import admin
 from django.contrib.auth.views import LogoutView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
+from django.views.generic import RedirectView
 
 from orders.views import place_order, OrdersListView
 from . import settings
 from .views import home_page, UserLoginView, register_view
 
 urlpatterns = [
+    path("favicon.ico/", RedirectView.as_view(url='/static/favicon.ico')),
     path("", home_page, name="home"),
 
     path("login/", UserLoginView.as_view(), name="login"),
