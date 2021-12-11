@@ -2,7 +2,7 @@
 
 {% block content %}
     <div style="font-size: 24px;margin-bottom: 40px;padding-top: 40px;">Our Product Catalogue</div>
-    <div class="card-deck">
+    <div class="card-columns">
 {% for object in object_list  %}
     {% include "products/product-card.html" with product=object %}
 {#    <p>{{ product.title }} </p>#}

@@ -9,9 +9,15 @@
             <li class="nav-item active">
                 <a class="nav-link" href="/products/all">Products <span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/orders">Orders <span class="sr-only">(current)</span></a>
+            </li>
             {% if request.user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Logout</a>
+                </li>
+                <li class="nav-item" style="position: absolute;top:16px;right: 100px;font-size: 16px;color:whitesmoke">
+                    Hi, {{ request.user }}
                 </li>
                 <li class="nav-item" style="position: absolute;right: 32px;font-size: 24px;">
                     <a href="/cart/view"><i class="fa fa-shopping-cart" aria-hidden="true" style="color: white;"></i> <span id="cart-items-number" style="color: black;background-color: white; border-radius: 10px 10px">{{ cart.products.all|length }}</span></a>
