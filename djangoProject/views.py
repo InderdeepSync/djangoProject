@@ -3,6 +3,7 @@ from django.http import HttpRequest
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
+from carts.models import Cart
 from .forms import RegisterForm
 
 from django.contrib.auth import get_user_model
@@ -27,6 +28,7 @@ def register_view(request):
         email  = form.cleaned_data.get("email")
         password  = form.cleaned_data.get("password")
         new_user  = User.objects.create_user(username, email, password)
+        Cart.objects.new(user=new_user)
         return redirect("login")
 
     return render(request, "auth/registration-page.html", context)
