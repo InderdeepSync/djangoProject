@@ -1,4 +1,3 @@
-from django.contrib import admin
 from django.urls import path
 from .views import cart_view, add_product_to_cart, remove_product_from_cart
 

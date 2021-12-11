@@ -19,6 +19,7 @@ from django.contrib.auth.views import LogoutView
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 
+from orders.views import place_order
 from . import settings
 from .views import home_page, UserLoginView, register_view
 
@@ -31,6 +32,7 @@ urlpatterns = [
 
     path("cart/", include('carts.urls')),
     path("products/", include("products.urls", namespace="products")),
+    path('place-order/', place_order, name="place-order"),
 
     path('admin/', admin.site.urls),
 ]

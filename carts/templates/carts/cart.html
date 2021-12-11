@@ -15,7 +15,7 @@
   {% for cart_product in cart_products %}
     <tr>
       <td>{{ forloop.counter }}</td>
-      <td>{{ cart_product.title }}</td>
+      <td><a href="{{ cart_product.get_absolute_url }}">{{ cart_product.title }}</a></td>
       <td>{{ cart_product.price }}</td>
     </tr>
 {% endfor %}
@@ -24,5 +24,17 @@
   </tbody>
 </table>
     {% endif %}
-    <div>Cart Total: {{ cart.total }} </div>
+    <div> Cart Total: {{ cart.total }} </div>
+    {% if cart.total > 0 %}
+    <button class="btn btn-primary" onclick="placeOrder = () => {
+         fetch('/place-order')
+                  .then(res => res.json())
+                  .then((res) => {
+                      console.log('Response from Backend Server: ', res);
+                      alert('Your Order has been received and is under processing!')
+                      window.location.replace('/');
+                  })
+    }
+    placeOrder()"> Finalize Order</button>
+    {% endif %}
 {% endblock %}
