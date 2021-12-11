@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div style="font-size: 24px;margin-bottom: 40px;padding-top: 40px;">Cart Contents</div>
+    {% if cart.total %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Product Title</th>
+      <th scope="col">Price</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for cart_product in cart_products %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td>{{ cart_product.title }}</td>
+      <td>{{ cart_product.price }}</td>
+    </tr>
+{% endfor %}
+
+
+  </tbody>
+</table>
+    {% endif %}
+    <div>Cart Total: {{ cart.total }} </div>
+{% endblock %}

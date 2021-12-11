@@ -14,7 +14,7 @@
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>
                 <li class="nav-item" style="position: absolute;right: 32px;font-size: 24px;">
-                    <a href="/cart/view"><i class="fa fa-shopping-cart" aria-hidden="true" style="color: white;"></i> </a>
+                    <a href="/cart/view"><i class="fa fa-shopping-cart" aria-hidden="true" style="color: white;"></i> <span id="cart-items-number" style="color: black;background-color: white; border-radius: 10px 10px">{{ cart.products.all|length }}</span></a>
                 </li>
             {% else %}
                 <li class="nav-item">

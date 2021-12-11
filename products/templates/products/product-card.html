@@ -1,0 +1,44 @@
+{% load static %}
+{% url 'products:all' as all_products_url %}
+
+<div class="card" style="margin-top:15px;">
+  <h5 class="card-header" style="background-color: {% if product.quantity_available > 0 %} lightgreen {% else %} red {% endif %}">{{ product.title }}<span style="float:right">{% if product.quantity_available > 0 %} Available {% else %} Out of Stock {% endif %}</span></h5>
+    <img class="card-img-top" {% if product.image %} src="{{ product.image.url }}" {% else %} src="{% static 'img/not-found-image.jpg' %}" {% endif %} style="width:200px; margin: 24px auto 0px auto;" alt="{{ product.slug }}">
+  <div class="card-body">
+    <h5 class="card-title">Price: ${{ product.price }}</h5>
+    <p class="card-text">{{ product.description }}</p>
+    {% if all_products_url == request.path %}
+        <a href="{{ product.get_absolute_url }}" class="btn btn-primary" id="{{ product.slug }}">View</a>
+    {% endif %}
+      {% if product.quantity_available > 0 and request.user.is_authenticated %}
+          <button onclick="addToCart = () => {
+              let prevCount = document.getElementById('cart-items-number').innerHTML
+                if (this.innerHTML.includes('Add')) {
+                  fetch('/cart/add?product_slug=' + '{{ product.slug }}')
+                  .then(res => res.json())
+                  .then((res) => {
+                      console.log('Response from Backend Server: ', res);
+                      this.innerHTML = 'Remove from Cart'
+                      this.classList.add('btn-danger')
+                      this.classList.remove('btn-primary')
+                      document.getElementById('cart-items-number').innerHTML = '' + (parseInt(prevCount) + 1);
+                  })
+                } else {
+                  fetch('/cart/remove?product_slug=' + '{{ product.slug }}')
+                  .then(res => res.json())
+                  .then((res) => {
+                      console.log('Response from Backend Server: ', res);
+                      this.innerHTML = 'Add from Cart'
+                      this.classList.remove('btn-danger')
+                      this.classList.add('btn-primary')
+                      document.getElementById('cart-items-number').innerHTML = '' + (parseInt(prevCount) - 1);
+                  })
+                }
+          }
+          addToCart()" class="btn {% if product not in cart.products.all %} btn-primary {% else %} btn-danger {% endif %}">
+
+          {% if product not in cart.products.all %}  Add To Cart {% else %} Remove From Cart {% endif %}
+          </button>
+      {% endif %}
+  </div>
+</div>

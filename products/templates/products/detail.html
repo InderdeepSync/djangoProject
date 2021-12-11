@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div style="font-size: 24px;margin-bottom: 40px;padding-top: 40px;">Product Details</div>
+{% include "products/product-card.html" with product=object %}
+
+{% endblock %}
