@@ -10,8 +10,12 @@ from orders.models import Order
 @login_required()
 def place_order(request: HttpRequest):
     cart_object = Cart.objects.obtain_user_cart(user=request.user)
-    order_instance = Order.objects.create_order(request.user, cart_object.products.all())
+    purchased_products = cart_object.products.all()
+    order_instance = Order.objects.create_order(request.user, purchased_products)
     cart_object.products.set([])
+    for product in purchased_products:
+        product.quantity_available -= 1
+        product.save()
 
     return JsonResponse({"message": "Your Order was Successful!", "order_id": order_instance.id})
 
