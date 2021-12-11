@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div style="font-size: 24px;margin-bottom: 40px;padding-top: 40px;">Your Past Orders:</div>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Order ID</th>
+      <th scope="col">Products</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for order in orders_list %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{ order.id }}</td>
+
+        <td>{% for product in order.products.all %}
+            {{ product.title }},
+        {% endfor %}</td>
+
+    </tr>
+      {% endfor %}
+
+  </tbody>
+</table>
+{% endblock %}
