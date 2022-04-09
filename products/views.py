@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView
 
 from carts.models import Cart
 from .models import Product
+from django.shortcuts import get_object_or_404
 
 
 class ProductDetailSlugView(DetailView):
@@ -18,10 +19,7 @@ class ProductDetailSlugView(DetailView):
 
     def get_object(self, *args, **kwargs):
         slug = self.kwargs.get('slug')
-        try:
-            return Product.objects.get(slug=slug)
-        except Product.DoesNotExist:
-            raise Http404("The Product does not exist in our database..")
+        return get_object_or_404(Product, slug=slug)
 
 
 class ProductListView(ListView):
