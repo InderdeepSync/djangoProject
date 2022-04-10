@@ -8,6 +8,7 @@ django-crispy-forms = "*"
 Django = "*"
 Pillow = "*"
 django-rest-framework = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
