@@ -1,3 +1,4 @@
 django
 Pillow
 django-crispy-forms
+psycopg2
